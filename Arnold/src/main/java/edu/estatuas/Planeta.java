@@ -12,9 +12,11 @@ public enum Planeta {
     NEPTUNE(1.024e+26, 2.4746e7)
     ;
 
+    private final double gravity =  6.67400e-11;
+
     private double masa;
     private double radio;
-
+    private double gravedadSuperficie;
     private  Planeta (double masa , double radio){
         this.masa = masa;
         this.radio = radio;
@@ -27,5 +29,19 @@ public enum Planeta {
         return this.radio;
     }
 
+    public double pesoSuperficie(double peso){
+        calcularGravedad(MERCURY);
+        return this.gravedadSuperficie * masaHumano(peso);
+
+
+    }
+    public double calcularGravedad(Planeta planeta){
+        gravedadSuperficie = gravity * (planeta.getMasa()/(planeta.getRadio()*planeta.getRadio()));
+        return gravedadSuperficie;
+    }
+
+    public double masaHumano(double peso){
+        return peso / calcularGravedad(EARTH);
+    }
 
 }
